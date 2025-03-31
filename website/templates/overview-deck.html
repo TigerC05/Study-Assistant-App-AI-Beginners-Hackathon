@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Deck Overview{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-4">
+    <h1 class="fw-bold">{{ deck.name }}</h1>
+
+    {% if cue_cards|length == 0 %}
+    <p class="text-center mt-3">You have no cards in your deck! Click on "Add Cards" to add some!</p>
+    {% else %}
+    <p class="text-center mt-3">You have {{ cue_cards|length }} cards in this deck.</p>
+    {% endif %}
+
+    <div class="d-flex justify-content-center gap-4 mt-3" role="group">
+        <a href="{{ url_for('views.add_cards', deck_id=deck.id) }}" class="btn btn-success">Add Cards</a>
+        <a href="{{ url_for('views.study_deck', deck_id=deck.id) }}" class="btn btn-success {% if cue_cards|length == 0 %}disabled{% endif %}">Study</a>
+        <a href="{{ url_for('views.browse_deck', deck_id=deck.id) }}" class="btn btn-success {% if cue_cards|length == 0 %}disabled{% endif %}">Browse</a>
+    </div>
+
+    <!-- Delete Button -->
+    <div class="mt-4">
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteDeckModal">Delete Deck</button>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteDeckModal" tabindex="-1" aria-labelledby="deleteDeckModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="deleteDeckModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong>{{ deck.name }}</strong>?</p>
+                <p class="text-danger">This action cannot be undone.</p>
+                {% if deck.sub_decks %}
+                <p class="text-danger">This deck has <strong>sub-decks</strong>. Deleting this deck will also delete all its <strong>sub-decks and their cards</strong>.</p>
+                {% endif %}
+                {% if cue_cards|length > 0 %}
+                <p class="text-danger">This deck has <strong>cards</strong>. Deleting this deck will also delete all its <strong>cards</strong>.</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                {% if deck.sub_decks %}
+                <form method="POST" action="{{ url_for('views.delete_deck_but_displace_sub_decks', deck_id=deck.id) }}">
+                    <button type="submit" class="btn btn-warning">Yes, I want to delete this deck and cards, but displace its sub-decks</button>
+                </form>
+                {% endif %}
+                <form method="POST" action="{{ url_for('views.delete_deck_and_cards', deck_id=deck.id) }}">
+                    <button type="submit" class="btn btn-danger">Yes, I want to delete this deck and its cards</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

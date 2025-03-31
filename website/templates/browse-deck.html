@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% block title %}Browse Cards{% endblock %} {% block
+content %}
+
+<div class="container text-center mt-4">
+  <h2 class="fw-bold mb-3 text-center">
+    Browsing Cards in
+    <a
+      href="{{ url_for('views.overview_deck', deck_id=deck.id) }}"
+      class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+      data-bs-toggle="tooltip"
+      data-bs-html="true"
+      data-bs-title="Go back to deck overview. <br />You have {{ cue_cards|length }} cards in this deck."
+      data-bs-placement="bottom"
+      >{{ deck.name }}</a
+    >
+  </h2>
+</div>
+{% if cue_cards|length == 0 %}
+<p class="text-center mt-3">You have no cards in your deck!</p>
+{% else %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Front Text</th>
+      <th>Back Text</th>
+      <th>Created</th>
+      <th>EF</th>
+      <th>Repetitions</th>
+      <th>Interval</th>
+      <th>Days Since Last Review</th>
+      <th>Deck ID</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for card in cue_cards %}
+    <tr>
+      <td>{{ card.front_text }}</td>
+      <td>{{ card.back_text }}</td>
+      <td>{{ card.created_at.strftime('%Y-%m-%d') }}</td>
+      <td>{{ card.easiness_factor }}</td>
+      <td>{{ card.repetitions }}</td>
+      <td>{{ card.interval }}</td>
+      <td>{{ card.days_since_last_review }}</td>
+      <td>{{ card.deck_id }}</td>
+      <td>
+        <button
+          class="btn btn-danger delete-card-btn"
+          data-card-id="{{ card.id }}"
+          data-card-name="{{ card.front_text }}"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteCardModal"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<!-- Delete Confirmation Modal -->
+<div
+  class="modal fade"
+  id="deleteCardModal"
+  tabindex="-1"
+  aria-labelledby="deleteCardModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="deleteCardModalLabel">
+          Confirm Deletion
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete
+          <strong id="modalCardName">this card</strong>?
+        </p>
+        <p class="text-danger">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <form method="POST" action="{{ url_for('views.delete_card') }}">
+          <input type="hidden" name="card_id" id="deleteCardId" />
+          <button type="submit" class="btn btn-danger">
+            Yes, I want to delete this card
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

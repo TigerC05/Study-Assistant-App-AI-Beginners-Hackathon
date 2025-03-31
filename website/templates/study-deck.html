@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Study Deck{% endblock %}
+{% block content %}
+<div class="container text-center mt-4">
+    <h2 class="fw-bold mb-3 text-center">
+        Studying Cards in
+        <a
+          href="{{ url_for('views.overview_deck', deck_id=deck.id) }}"
+          class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+          data-bs-toggle="tooltip"
+          data-bs-html="true"
+          data-bs-title="Go back to deck overview. <br />You have {{ cue_cards|length }} cards in this deck."
+          data-bs-placement="bottom"
+          >{{ deck.name }}</a
+        >
+      </h2>
+</div>
+{% endblock %}

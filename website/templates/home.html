@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<br />
+{% if user.is_authenticated %}
+<div class="container text-center mt-5">
+  <h1 class="fw-bold">Welcome back, {{ user.first_name }}!</h1>
+  <p class="lead mt-3">
+    Ready to put your knowledge to the test?
+    <strong>Cue Card Assistant</strong> is here to help you study smarter with
+    AI-powered quizzes that keep you honest and engaged.
+  </p>
+  <p>
+    Using <strong>AI speech-to-text and text-to-speech</strong>, our system
+    challenges you in a real conversation, making sure you're not just guessing
+    or giving yourself an easy pass. Just focus on learning—Cue Card Assistant
+    will handle the rest!
+  </p>
+  <p>
+    Whether you're reviewing old topics or diving into something new, we're here
+    to make your study sessions more effective and fun. Let's get started!
+  </p>
+  <a href="{{ url_for('views.decks') }}" class="btn btn-primary btn-lg mt-3">Go to Your Decks</a>
+</div>
+
+{% else %}
+<div class="container text-center mt-5">
+  <h1 class="fw-bold" align="center">Welcome to Cue Card Assistant!</h1>
+  <p class="lead mt-3" align="center">
+    Ever caught yourself flipping over a flashcard too early and thinking,
+    <em>"Eh, close enough"</em>? We’ve all been there. That’s why we created
+    <strong>Cue Card Assistant</strong>—your personal AI-powered study buddy
+    that keeps you honest and makes learning more engaging.
+  </p>
+  <p align="center">
+    Inspired by the struggle of truly testing yourself, our platform uses
+    <strong>AI speech-to-text and text-to-speech</strong> to quiz you like a
+    real conversation. No more second-guessing or giving yourself an easy
+    pass—just a streamlined, hands-free way to reinforce your knowledge.
+  </p>
+  <p align="center">
+    Whether you're prepping for exams, mastering a new language, or sharpening
+    your skills,
+    <strong>Cue Card Assistant</strong> is here to make studying smarter,
+    faster, and a little more fun. Ready to level up your learning? Let’s get
+    started!
+  </p>
+  <a href="/sign-up" class="btn btn-primary btn-lg mt-3">Sign Up</a>
+</div>
+
+{% endif %} {% endblock %}
+
+<!-- <ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})"> 
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
+</form> -->

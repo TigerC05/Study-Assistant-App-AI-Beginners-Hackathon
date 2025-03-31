@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block title %}Add Cards{% endblock %} {% block
+content %}
+
+<div class="container mt-4">
+  <h2 class="fw-bold mb-3 text-center">
+    Add Cards to
+    <a
+      href="{{ url_for('views.overview_deck', deck_id=deck.id) }}"
+      class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+      data-bs-toggle="tooltip"
+      data-bs-html="true"
+      data-bs-title="Go back to deck overview. <br />You have {{ cue_cards|length }} cards in this deck."
+      data-bs-placement="bottom"
+      >{{ deck.name }}</a
+    >
+  </h2>
+
+  <form method="POST">
+    <div class="mb-3">
+      <label for="frontText" class="form-label">Front Text</label>
+      <input
+        type="text"
+        class="form-control"
+        id="frontText"
+        name="front_text"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="backText" class="form-label">Back Text</label>
+      <input
+        type="text"
+        class="form-control"
+        id="backText"
+        name="back_text"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Card</button>
+  </form>
+</div>
+
+{% endblock %}

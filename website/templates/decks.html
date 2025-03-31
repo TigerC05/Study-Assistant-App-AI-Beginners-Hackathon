@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block title %}Decks{% endblock %} {% block content
+%}
+<div class="container mt-5">
+    <h1 class="fw-bold text-center">Your Decks</h1>
+    <p class="text-center text-muted">Click a deck to view its cue cards or expand a folder to see sub-decks.</p>
+
+
+    {{ display_deck_heirarchy_html(decks)|safe }} <!-- safe turns of the auto-escaping feature -->
+    <!-- <div class="list-group">
+        {% for deck in decks %}
+        {% if not deck.parent_id %}
+        <div class="list-group-item">
+            {% if deck.sub_decks %}
+            <button class="btn btn-link text-decoration-none" data-bs-toggle="collapse" data-bs-target="#deck-{{ deck.id }}">
+                <i class="bi bi-caret-right-fill toggle-arrow"></i>
+            </button>
+            {% else %}
+            <span class="ms-4"></span>
+            {% endif %}
+            
+            <a href="/cue-cards/{{ deck.id }}" class="text-dark text-decoration-none fw-bold">{{ deck.name }}</a>
+            
+        </div>
+        {% endif %}
+
+        {% if deck.sub_decks %}
+        <div class="collapse" id="deck-{{ deck.id }}" style="padding-left: {{1.5}}rem;">
+            {% for sub_deck in deck.sub_decks %}
+            <div class="list-group-item">
+                <button class="btn btn-link text-decoration-none" data-bs-toggle="collapse" data-bs-target="#deck-{{ sub_deck.id }}">
+                    <i class="bi bi-caret-right-fill toggle-arrow"></i>
+                </button>
+                <a href="/cue-cards/{{ sub_deck.id }}" class="text-dark text-decoration-none fw-bold">{{ sub_deck.name }}</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div> -->
+
+    <!-- Button to create a new deck -->
+    <div class="text-center mt-4">
+        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createDeckModal">Create New Deck</a>
+    </div>
+
+    <!-- Modal for creating a new deck -->
+    <div class="modal fade" id="createDeckModal" tabindex="-1" aria-labelledby="createDeckModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="createDeckModalLabel">Create Deck</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label for="deckName" class="form-label">Deck Name</label>
+                        <input type="text" class="form-control" id="deckName" name="deck_name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ display_deck_list_html(decks)|safe }}
+                        <!-- <label for="parentDeck" class="form-label">Nest Under:</label>
+                        <select class="form-select" id="parentDeck" name="parent_deck">
+                            <option value="">None (Top-Level Deck)</option>
+                            {% for deck in decks %}
+                            <option value="{{ deck.id }}">{{ deck.name }}</option>
+                            {% for sub_deck in deck.sub_decks_recursive %}
+                            <option value="{{ sub_deck.id }}">/{{ deck.name }}/{{ sub_deck.name }}</option>
+                            {% endfor %}
+                            {% endfor %}
+                        </select> -->
+                    </div>  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
