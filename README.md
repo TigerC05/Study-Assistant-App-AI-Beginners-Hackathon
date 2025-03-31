@@ -5,9 +5,9 @@
 
 ## Introduction
 
-Ever caught yourself flipping over a flashcard too early and thinking, "Eh, close enough"? We’ve all been there. That’s why we created Cue Card Assistant—your personal AI-powered study buddy that keeps you honest and makes learning more engaging.
+Ever caught yourself flipping over a flashcard too early and thinking, *"Eh, close enough"*? We’ve all been there. That’s why we created **Cue Card Assistant**—your personal AI-powered study buddy that keeps you honest and makes learning more engaging.
 
-Whether you're preparing for exams, mastering a new language, or reinforcing concepts, Cue Card Assistant uses AI to provide an interactive, hands-free way to study.
+Whether you're preparing for exams, mastering a new language, or reinforcing concepts, **Cue Card Assistant** uses AI to provide an interactive, hands-free way to study.
 
 ## Inspiration
 
@@ -18,7 +18,7 @@ Traditional flashcard systems often rely on self-assessment, which can lead to o
 Cue Card Assistant incorporates AI to:
 - **Use Speech-to-Text**: Users can speak their answers aloud, and the assistant will transcribe and evaluate them.
 - **Enable Text-to-Speech**: The assistant can read cue cards out loud, making hands-free studying possible.
-- **Enhance Learning with Spaced Repetition**: Using the SuperMemo 2 algorithm, the app intelligently schedules review sessions for optimal retention.
+- **Enhance Learning with Spaced Repetition**: Using the [SuperMemo 2](https://www.supermemo.com/en/blog/application-of-a-computer-to-improve-the-results-obtained-in-working-with-the-supermemo-method) algorithm, the app intelligently schedules review sessions for optimal retention.
 
 ## Dependencies
 
